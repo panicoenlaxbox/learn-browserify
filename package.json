@@ -1,0 +1,33 @@
+{
+  "name": "browserify",
+  "version": "1.0.0",
+  "description": "browserify workflow",
+  "main": "index.js",
+  "scripts": {
+    "bundle": "npm run clean && browserify src/main.ts -x vue --debug -p tsify -t uglifyify | exorcist src/app.js.map > src/app.js && browserify -t uglifyify -o src/vendor.js -r vue",
+    "watch": "onchange \"src/**/*.ts\" -v -i -- npm run bundle",
+    "dev": "npm-run-all bundle --parallel watch serve",
+    "serve": "live-server --watch=src/index.html,src/app.js,src/vendor.js --open=src/index.html",
+    "clean": "rimraf src/app.* src/vendor.* src/main.js src/lib.js"
+  },
+  "keywords": [],
+  "author": "Sergio León <panicoenlaxbox@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.1.7"
+  },
+  "devDependencies": {
+    "browserify": "^13.1.1",
+    "exorcist": "^0.4.0",
+    "live-server": "^1.1.0",
+    "npm-run-all": "^3.1.2",
+    "onchange": "^3.2.1",
+    "rimraf": "^2.5.4",
+    "tsify": "^2.0.8",
+    "typescript": "^2.1.4",
+    "uglifyify": "^3.0.4"
+  },
+  "browser": {
+    "vue": "vue/dist/vue.common"
+  }
+}
